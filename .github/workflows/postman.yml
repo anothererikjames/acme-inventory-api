@@ -1,0 +1,16 @@
+name: Postman CI
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 */6 * * *'
+jobs:
+  postman:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Postman Collection
+        uses: postmanlabs/postman-cli-action@v1
+        with:
+          api-key: ${{ secrets.POSTMAN_API_KEY }}
+          command: collection run 52238111-754b0672-0624-4dfc-b73b-429a46fe3d42 --environment 52274286-07b9d45e-c5a6-44b2-9c06-73187c583673 --verbose
